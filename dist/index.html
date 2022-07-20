@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kinxper</title>
+    <link rel="stylesheet" href="./assets/base.css">
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <div class="recode_select">
+        <h1 class="recode_select-title">kinxper</h1>
+        <dl>
+            <dd><input type="text" name="domain" id="domain" placeholder="サブドメイン">.cybozu.com</dd>
+        </dl>
+        <dl>
+            <dd><input type="password" name="token" id="token" placeholder="APIトークン">
+            <input type="text" name="appId" id="appId" placeholder="アプリID">
+            <input type="text" name="recordNo" id="recordNo" placeholder="レコードNo"></dd>
+        </dl>
+
+        <div class="message"></div>
+
+        <button onclick="getRecode()">印刷する🖨️</button>
+
+        <div class="ads">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1301045842322864"
+            crossorigin="anonymous"></script>
+            <!-- kinxper -->
+            <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1301045842322864"
+            data-ad-slot="7641881136"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <div class="response displaynone">
+
+        <div class="response-page">
+
+            <h1 class="title"></h1>
+            <hr>
+            <div class="to_wrap">
+                <p class="to"></p>
+                <p class="to_person"></p>
+            </div>
+            <div class="info_wrap">
+                <p class="date"></p>
+                <p class="paper_no"></p>
+            </div>
+            <div class="from_wrap">
+                <p class="from_company"></p>
+                <p class="from_address"></p>
+            </div>
+            <div class="item_wrap">
+                <p class="text_top"></p>
+                <p class="total"></p>
+                <table class="items"></table>
+                <p class="total_bottom"></p>
+                <p class="text_bottom"></p>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        // Get URL Parameter
+        const paramAll = document.location.search.replace('?', '').split('&');
+        let params = {};
+        if(paramAll.length >= 1) {
+            paramAll.forEach((param) => {
+                const paramArr = param.split('=');
+                params[paramArr[0]] = paramArr[1];
+            });
+        }
+
+        // Set Input Values
+        document.getElementById('domain').value = params.domain ? params.domain : '';
+        document.getElementById('token').value = params.token ? params.token : '';
+        document.getElementById('appId').value = params.appid ? params.appid : '';
+        document.getElementById('recordNo').value = params.recordid ? params.recordid : '';
+
+        async function getRecode() {
+            let noInputFlg = 0;
+            const domain = document.getElementById('domain').value === '' ? noInputFlg += 1 : document.getElementById('domain').value;
+            const token = document.getElementById('token').value === '' ? noInputFlg += 1 : document.getElementById('token').value;
+            const appId = document.getElementById('appId').value === '' ? noInputFlg += 1 : document.getElementById('appId').value;
+            const recordNo = document.getElementById('recordNo').value === '' ? noInputFlg += 1 : document.getElementById('recordNo').value;
+
+            if (noInputFlg > 0) {
+                document.querySelector('.message').innerHTML = `<p class="info">未入力の項目が ${noInputFlg}箇所あります。</p>`
+            } else {
+                let data = (await fetch('https://play.udcxx.me/22-kintone/get.php',{
+                    method: 'POST',
+                    body: `{
+                        "domain": "${domain}",
+                        "token": "${token}",
+                        "appId": "${appId}",
+                        "recordNo": "${recordNo}"
+                    }`
+                })).json();
+
+                data.then((value) => {
+                    document.querySelector('.recode_select').classList.add('displaynone');
+                    document.querySelector('.response').classList.remove('displaynone');
+                    dataToPage(value['record']);
+                });
+            }
+        }
+
+        function reset() {
+            document.querySelector('.response').classList.add('displaynone');
+            document.querySelector('.recode_select').classList.remove('displaynone');
+            document.querySelector('.response-page').innerHTML = '';
+        }
+
+        function dataToPage(recode) {
+            let page = document.querySelector('.response-page');
+
+            if (recode['Title']['value']) {
+                document.querySelector('.title').innerHTML = recode['Title']['value'];
+            }
+            if (recode['To']['value']) {
+                document.querySelector('.to').innerHTML = `${recode['To']['value']} 御中`;
+            }
+            if (recode['To_Person']['value']) {
+                document.querySelector('.to_person').innerHTML = `${recode['To_Person']['value']} 様`;
+            }
+            if (recode['Date']['value']) {
+                document.querySelector('.date').innerHTML = `${recode['Date']['value']}`;
+            }
+            if (recode['PaperNo']['value']) {
+                document.querySelector('.paper_no').innerHTML = `${recode['PaperNo']['value']}`;
+            }
+            if (recode['From_Company']['value']) {
+                document.querySelector('.from_company').innerHTML = `${recode['From_Company']['value']}`;
+            }
+            if (recode['From_Address']['value']) {
+                document.querySelector('.from_address').innerHTML = `${recode['From_Address']['value'].replace('\n', '<br>')}`;
+            }
+            if (recode['TextTop']['value']) {
+                document.querySelector('.text_top').innerHTML = `${recode['TextTop']['value'].replace('\n', '<br>')}`;
+            }
+            if (recode['Total']['value']) {
+                document.querySelector('.total').innerHTML = `合計<span>${Number(recode['Total']['value']).toLocaleString()}</span>円`;
+                document.querySelector('.total_bottom').innerHTML = `合計<span>${Number(recode['Total']['value']).toLocaleString()}</span>円`;
+            }
+            if (recode['Table']['value']) {
+                let tableData = '';
+                recode['Table']['value'].forEach((item, i) => {
+                    tableData += `<tr>
+                    <td>${item['value']['Item']['value']}</td>
+                    <td>${Number(item['value']['Price']['value']).toLocaleString()}</td>
+                    <td>${Number(item['value']['Quantity']['value']).toLocaleString()}</td>
+                    <td>${item['value']['Tax']['value']}%</td>
+                    <td>${Number(item['value']['Subtotal']['value']).toLocaleString()}</td>`
+                });
+
+                document.querySelector('.items').innerHTML = `<tr><td>項目</td><td>単価</td><td>数量</td><td>税率</td><td>小計</td></tr>
+                ${tableData}`;
+            }
+            if (recode['Text_Bottom']['value']) {
+                document.querySelector('.text_bottom').innerHTML = `${recode['Text_Bottom']['value'].replace('\n', '<br>')}`;
+            }
+
+            window.print();
+        }
+    </script>
+</body>
+</html>
