@@ -96,7 +96,7 @@
             if (noInputFlg > 0) {
                 document.querySelector('.message').innerHTML = `<p class="info">未入力の項目が ${noInputFlg}箇所あります。</p>`
             } else {
-                let data = (await fetch('https://play.udcxx.me/22-kintone/get.php',{
+                let data = (await fetch('https://app.udcxx.me/kinxper/get.php',{
                     method: 'POST',
                     body: `{
                         "domain": "${domain}",
