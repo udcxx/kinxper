@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Help - kinxper</title>
+        <link rel="stylesheet" href="../assets/base.css">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <main>
+            <h1>kinxper</h1>
+            <h2>kinxperとは</h2>
+                <p>kinxper キンパー は、kintone APIを利用して帳票印刷を行う連携サービスです。</p>
+            <h2>使い方</h2>
+                <h3>初期設定</h3>
+                    <p>💡最初だけ必要な設定です。kintoneシステム管理者で実施してください。</p>
+                    <dl class="">
+                        <dt>1. <span class="bold">[kinxper] 帳票管理</span>アプリをkintoneへ作成します。</dt>
+                        <dd>✅アプリテンプレートは <a href="#">こちら</a> からダウンロードできます！<br>✅アプリテンプレートからアプリを作成する方法は <a href="https://jp.cybozu.help/k/ja/user/create_app/app_csv/add_app_template_file.html">公式ヘルプ</a> を参考にしてください。</dd>
+                        <dt>2. 作成したアプリで、APIトークンを生成し、控えておきます。</dt>
+                        <dd>✅APIトークンを生成する方法は <a href="https://jp.cybozu.help/k/ja/user/app_settings/api_token.html#app_settings_api_token_10">公式ヘルプ</a> を参考にしてください<br>✅アクセス権は、レコード閲覧のみで大丈夫です。</dd>
+                        <dt>3. <span class="bold">トークン</span>というフィールドの初期値を設定します。</dt>
+                        <dd>✅先程控えておいたAPIトークンを初期値に設定しておきます。<br>✅ついでに、差出人名や差出人住所欄も初期値を設定することをオススメします。</dd>
+                        <dt>4. 最後に<span class="bold">アプリの更新</span>を忘れずに！</dt>
+                    </dl>
+                <h3>印刷方法</h3>
+                    <p>レコード詳細画面に表示される、<span class="bold">印刷 by kinxper</span> をクリックして、<br>kinxperのページに遷移したら <span class="bold">印刷する🖨️</span> をクリックしてください。</p>
+            <h2>Q&A</h2>
+                <dl class="">
+                    <dt>フォームの設定を変更しても大丈夫？</dt>
+                    <dd>フィールドコードを基準に、印刷画面を設定しているので、フィールドコードを変えなければ、基本大丈夫です。<br>配置を変えたり、フィールドを追加したり、自由に改変してください！</dd>
+                    <dt>印刷画面のカスタマイズはできる？</dt>
+                    <dd>個別に相談させてください。内容をヒアリングの上で、納期や費用を提示いたします。<br>軽微な変更の場合で、1週間・1万円程度を想定してます。</dd>
+                    <dt>問い合わせ先は？</dt>
+                    <dd>お問い合わせは <a href="https://twitter.com/udc_xx/">Twitter</a> からどうぞ！</dd>
+                </dl>
+        </main>
+    </body>
+</html>
