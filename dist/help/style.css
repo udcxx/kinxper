@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 main {
-    width: 80%; max-width: 960px;
+    width: 80%; max-width: 768px;
     margin: 0 auto;
     padding: 36px 0;
     display: block;
@@ -12,6 +12,11 @@ main {
 h1 {
     text-align: center;
     font-size: 28px; font-weight: bold;
+}
+
+.link {
+    display: block;
+    text-align: right;
 }
 
 h2 {
@@ -49,4 +54,8 @@ dd {
 }
 span.bold {
     font-weight: bold;
+}
+
+.mt12 {
+    margin-top: 12px;
 }
