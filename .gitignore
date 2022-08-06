@@ -1,0 +1,24 @@
+#
+# Git 管理外にするファイル
+#
+
+# 全般
+.DS_Store
+
+# node系
+node_modules/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Nuxt系
+.nuxt/
+
+# Web系
+.htaccess
+.htpasswd
+
+# DB情報をGitにアップしないようにする
+dist/secret.php
