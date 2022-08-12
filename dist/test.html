@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <input type="text" id="api" name="" value="">
+        <button onclick="getKey()">暗号化</button>
+        <p class="retuen"></p>
+
+        <script type="text/javascript">
+            async function getKey() {
+                const api =  document.getElementById('api').value;
+                let data = (await fetch('https://app.udcxx.me/kinxper/encryption.php',{
+                    method: 'POST',
+                    body: `{
+                        "api": "${api}"
+                    }`
+                })).json();
+
+                data.then((value) => {
+                    document.querySelector('.retuen').innerHTML = value.key;
+                    console.log(value);
+                });
+            }
+        </script>
+    </body>
+</html>
