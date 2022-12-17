@@ -16,6 +16,9 @@ yarn-error.log*
 # Nuxt系
 .nuxt/
 
+# VScode
+*.code-workspace
+
 # Web系
 .htaccess
 .htpasswd
