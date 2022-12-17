@@ -14,7 +14,7 @@
       
       const recordId = kintone.app.record.getId();
       const appId = kintone.app.getId();
-      const token = event.record['Token'].value;
+      const token = event.record['Token'].value ? event.record['Token'].value : '';
       const domain = location.hostname.replace('.cybozu.com', '');
   
       button.addEventListener('click', function(event) {
