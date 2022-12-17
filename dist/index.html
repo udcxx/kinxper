@@ -30,6 +30,7 @@
             <dd><input type="password" name="token" id="token" placeholder="APIトークン">
             <input type="text" name="appId" id="appId" placeholder="アプリID">
             <input type="text" name="recordNo" id="recordNo" placeholder="レコードNo"></dd>
+            <dd><input type="hidden" name="encrypted" id="encrypted" value="0"></dd>
         </dl>
 
         <div class="message"></div>
@@ -97,6 +98,7 @@
         document.getElementById('token').value = params.token ? params.token : '';
         document.getElementById('appId').value = params.appid ? params.appid : '';
         document.getElementById('recordNo').value = params.recordid ? params.recordid : '';
+        document.getElementById('encrypted').value = params.encrypted ? params.encrypted : '';
 
         async function getRecode() {
             let noInputFlg = 0;
@@ -135,31 +137,31 @@
         function dataToPage(recode) {
             let page = document.querySelector('.response-page');
 
-            if (recode['Title']['value']) {
+            if (recode['Title']['value'] != undefined && recode['Title']['value']) {
                 document.querySelector('.title').innerHTML = recode['Title']['value'];
             }
-            if (recode['To']['value']) {
+            if (recode['To']['value'] != undefined && recode['To']['value']) {
                 document.querySelector('.to').innerHTML = `${recode['To']['value']} 御中`;
             }
-            if (recode['To_Person']['value']) {
+            if (recode['To_Person']['value'] != undefined && recode['To_Person']['value']) {
                 document.querySelector('.to_person').innerHTML = `${recode['To_Person']['value']} 様`;
             }
-            if (recode['Date']['value']) {
+            if (recode['Date']['value'] != undefined && recode['Date']['value']) {
                 document.querySelector('.date').innerHTML = `${recode['Date']['value']}`;
             }
-            if (recode['PaperNo']['value']) {
+            if (recode['PaperNo']['value'] != undefined && recode['PaperNo']['value']) {
                 document.querySelector('.paper_no').innerHTML = `${recode['PaperNo']['value']}`;
             }
-            if (recode['From_Company']['value']) {
+            if (recode['From_Company']['value'] != undefined && recode['From_Company']['value']) {
                 document.querySelector('.from_company').innerHTML = `${recode['From_Company']['value']}`;
             }
-            if (recode['From_Address']['value']) {
+            if (recode['From_Address']['value'] != undefined && recode['From_Address']['value']) {
                 document.querySelector('.from_address').innerHTML = `${recode['From_Address']['value'].replace('\n', '<br>')}`;
             }
-            if (recode['TextTop']['value']) {
+            if (recode['TextTop']['value'] != undefined && recode['TextTop']['value']) {
                 document.querySelector('.text_top').innerHTML = `${recode['TextTop']['value'].replace('\n', '<br>')}`;
             }
-            if (recode['Total']['value']) {
+            if (recode['TextTop']['value'] != undefined && recode['TextTop']['value']) {
                 document.querySelector('.total').innerHTML = `合計<span>${Number(recode['Total']['value']).toLocaleString()}</span>円`;
                 document.querySelector('.total_bottom').innerHTML = `合計<span>${Number(recode['Total']['value']).toLocaleString()}</span>円`;
             }
